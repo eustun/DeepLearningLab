@@ -40,6 +40,11 @@ function test()
 
       -- test sample
       local pred = model:forward(input)
+      
+      if opt.model ~= 'convnet' then
+         pred = torch.squeeze(pred:transpose(1,2))
+      end
+      
       confusion:add(pred, target)
    end
 
