@@ -164,6 +164,10 @@ function train()
                           -- estimate df/dW
                           local df_do = criterion:backward(output, targets[i])
                           model:backward(inputs[i], df_do)
+            
+                          if opt.model ~= 'convnet' then
+                             output = torch.squeeze(output:transpose(1,2))
+                          end
 
                           -- update confusion
                           confusion:add(output, targets[i])
